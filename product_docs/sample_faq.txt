@@ -1,0 +1,10 @@
+
+            Q: What is our return policy?
+            A: Items can be returned within 30 days of purchase with receipt.
+            
+            Q: How do I reset my password?
+            A: Go to the login page and click on "Forgot Password" to receive reset instructions.
+            
+            Q: What payment methods do you accept?
+            A: We accept credit cards, PayPal, and bank transfers.
+            
