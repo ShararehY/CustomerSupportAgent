@@ -52,14 +52,25 @@ class CustomerSupportRAG:
 
     def _should_escalate(self, query):
         """
-        Determine if the query should be escalated to a human.
+        Use the LLM to determine if the query should be escalated to a human
         """
-        escalation_triggers = [
-            "speak to human", "talk to agent", "human support",
-            "manager", "supervisor", "not helpful", "wrong information"
-        ]
+        escalation_prompt = f"""
+        As a customer support system, evaluate if the following customer query needs to be escalated to a human agent.
         
-        return any(trigger in query.lower() for trigger in escalation_triggers)
+        Customer query: "{query}"
+        
+        Escalate to a human if:
+        1. The query involves a complex problem that requires human judgment
+        2. The customer is expressing strong negative emotions or frustration
+        3. The query involves a sensitive issue (e.g., billing disputes, account security)
+        4. The customer has explicitly requested human assistance
+        5. The query suggests a potential emergency situation
+        
+        Return only "escalate" or "handle" as your answer.
+        """
+        
+        response = self.llm.invoke(escalation_prompt)
+        return "escalate" in response.content.lower()
 
 
 if __name__ == "__main__":
